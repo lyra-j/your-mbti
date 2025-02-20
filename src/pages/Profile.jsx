@@ -1,12 +1,16 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
+// import { updateProfile } from "../api/auth";
 
-const Profile = () => {
-  const [nickname, setNickname] = useState();
+const Profile = ({ user, setUser }) => {
+  const [nickname, setNickname] = useState(user?.nickname || "");
 
-  const handleNicknameChange = () => {};
+  const handleNicknameChange = (e) => {
+    setNickname(e.target.value);
+  };
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefaulet();
+  };
 
   return (
     <div>

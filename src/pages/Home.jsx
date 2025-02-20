@@ -34,6 +34,7 @@ const Home = () => {
         </li>
       </ul>
       <Link to="/login">로그인하기</Link>
+      <Link to="/test">내 성격 알아보러 가기</Link>
     </div>
   );
 };
