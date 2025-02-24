@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { getUserProfile, updateProfile } from "../api/auth";
+import { updateProfile } from "../api/auth";
 
 const Profile = () => {
   // 인증 상태 및 사용자 정보
@@ -12,26 +12,12 @@ const Profile = () => {
 
   const navigate = useNavigate();
 
-  // 다시 확인해봐야 함 > profile페이지 private router임>> 컨텍스트로 가도 되나?
-  // useEffect(() => {
+  // 사용자가 로그인하지 않은경우, 로그인페이지로 이동
   if (!isAuthenticated) {
     alert("로그인이 필요합니다.");
     navigate("/login");
     return null;
   }
-  //   else {
-  //     const fetchUserProfile = async () => {
-  //       try {
-  //         const userProfile = await getUserProfile(token);
-  //         setUser(userProfile);
-  //         setNewNickname(userProfile.nickname || "");
-  //       } catch (error) {
-  //         console.error("사용자 정보를 가져오는데 실패했습니다.", error);
-  //       }
-  //     };
-  //     fetchUserProfile();
-  //   }
-  // }, [isAuthenticated, token]);
 
   // 닉네임 입력 값 핸들러
   const handleChange = (e) => {
@@ -40,8 +26,7 @@ const Profile = () => {
 
   // 닉네임 변경 함수
   const handleSubmit = async (e) => {
-    // 새고가 되어서 보니 이녀석이 오타
-    e.preventDefault();
+    e.preventDefault(); // 폼 제출 시 페이지 새로고침 방지
 
     try {
       const formData = new FormData();
@@ -50,6 +35,7 @@ const Profile = () => {
       // 사용자 닉네임 업데이트 요청 API 호출
       const data = await updateProfile(formData, token);
 
+      // 변경된 닉네임 적용
       setUser((prev) => ({ ...prev, nickname: data.nickname }));
       setNewNickname(data.nickname);
       alert("닉네임이 변경되었습니다.");
@@ -59,7 +45,7 @@ const Profile = () => {
     }
   };
 
-  // 사용자 정보 로딩중일 경우
+  // 사용자 정보 로딩중일 경우 로딩 메시지 표출
   if (!user) {
     return <div>Loading...</div>;
   }
