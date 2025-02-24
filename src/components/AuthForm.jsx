@@ -1,31 +1,67 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import useForm from "../hook/useForm";
+import { AuthContext } from "../context/AuthContext";
+import { apilogin, register } from "../api/auth";
 
-// 회원가입인지 로그인인지 구분하기 위해 mode 를 props 로 받습니다.
-// onSubmit 도 회원가입과 로그인 페이지에서 각각 구현을 하고 props 로 넘겨줄 겁니다.
+const AuthForm = ({ mode }) => {
+  const isLoginMode = mode === "login";
+  const navigate = useNavigate();
+  const { loginUser } = useContext(AuthContext);
 
-const AuthForm = ({ mode, onSubmit }) => {
-  const [formData, setFormData] = useState({
+  const { formData, handleChange, resetForm } = useForm({
     id: "",
     password: "",
     nickname: "",
   });
 
-  const handleSubmit = (e) => {
+  // Login login
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const { id, password } = formData;
-    // mode === 'signup'
+    try {
+      // NOTE: login
+      const data = await apilogin({
+        id: formData.id,
+        password: formData.password,
+      });
+
+      alert("로그인 완료");
+      // 로그인 상태를 브라우저에 저장
+      loginUser(data.accessToken);
+      navigate("/profile");
+    } catch (error) {
+      console.error("Login error", error);
+      alert("로그인에 실패했습니다.");
+      // alert(error.response.data.message);
+    }
   };
 
-  const handleChange = (e) => {
+  // Signup logic
+  const handleSignup = async (e) => {
     e.preventDefault();
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    try {
+      // NOTE: signup
+      await register({
+        id: formData.id,
+        password: formData.password,
+        nickname: formData.nickname,
+      });
+
+      alert("회원가입 완료");
+      navigate("/login");
+      resetForm();
+    } catch (error) {
+      console.error("⛔️Signup error", error);
+      alert("회원가입에 실패했습니다.");
+      //   alert(`오류 캐치 : ${error.response.data.message} || "네트워크 오류"`);
+    }
   };
 
   return (
     <div>
       <form
-        onSubmit={handleSubmit}
+        onSubmit={mode === "login" ? handleLogin : handleSignup}
         className="bg-gray-50 p-6 rounded-lg shadow-md space-y-6"
       >
         <input
@@ -38,7 +74,7 @@ const AuthForm = ({ mode, onSubmit }) => {
           className="w-full p-4 border border-gray-200 rounded-lg"
         />
         <input
-          type="text"
+          type="password"
           name="password"
           value={formData.password}
           onChange={handleChange}
@@ -48,7 +84,7 @@ const AuthForm = ({ mode, onSubmit }) => {
         />
 
         {/* 회원가입시 보이는 닉네임 input */}
-        {mode === "signup" && (
+        {!isLoginMode && (
           <input
             type="text"
             name="nickname"
@@ -56,14 +92,14 @@ const AuthForm = ({ mode, onSubmit }) => {
             onChange={handleChange}
             placeholder="닉네임"
             required
-            className="w-full p-4 border-gray-200 rounded-lg"
+            className="w-full p-4 border border-gray-200 rounded-lg"
           />
         )}
         <button
           type="submit"
-          className="w-full bg-red-500 text-white py-3 rounded-lg hover:bg-gray-200 transition duration-300 hover:text-[#ff5a5f]"
+          className="w-full bg-violet-500 text-white py-3 rounded-lg hover:bg-violet-800 transition duration-300"
         >
-          {mode === "login" ? "로그인" : "회원가입"}
+          {isLoginMode ? "로그인" : "회원가입"}
         </button>
       </form>
     </div>
