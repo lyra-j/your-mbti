@@ -1,18 +1,23 @@
 import React, { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 const Home = () => {
+  // AuthContext에서 로그인 인증 상태 가져오기
   const { isAuthenticated } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  // Test페이지로 이동하는 함수
   const handleTestNavigation = () => {
-    const confirmLogin = window.confirm(
-      "로그인 후 이용가능합니다. 로그인페이지로 이동하시겠습니까?"
-    );
+    // 로그인되어 있다면 Test페이지로 이동
     if (isAuthenticated) {
       return navigate("/test");
     }
+
+    // 로그인 상태가 아니라면 사용자에게 확인창 표출
+    const confirmLogin = window.confirm(
+      "로그인 후 이용가능합니다. 로그인페이지로 이동하시겠습니까?"
+    );
 
     if (!isAuthenticated) {
       if (confirmLogin) {
@@ -26,7 +31,6 @@ const Home = () => {
   return (
     <div className="w-full flex flex-col items-center justify-center bg-gray-50">
       <div>
-        {/* <h1 className="text-5xl font-bold mb-6">Your MBTI</h1> */}
         <h2 className="text-3xl font-semibold mb-5">무료 성격 테스트</h2>
         <p className="text-lg mb-8">
           자신의 성격 유형을 확인할 수 있도록 솔직하게 답변해주세요.
@@ -57,7 +61,7 @@ const Home = () => {
 
       <button
         onClick={handleTestNavigation}
-        className="inline-block bg-violet-500 text-white py-2 px-6 rounded-full hover:bg-secondary-color transition mb-4 hover:bg-violet-800"
+        className="inline-block bg-violet-500 text-white py-2 px-6 rounded-full transition mb-4 hover:bg-violet-800"
       >
         내 성격 알아보러 가기
       </button>
