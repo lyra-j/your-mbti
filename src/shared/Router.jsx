@@ -1,5 +1,11 @@
 import React, { useContext } from "react";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Outlet,
+  Route,
+  Routes,
+} from "react-router-dom";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Profile from "../pages/Profile";
@@ -11,32 +17,47 @@ import { AuthContext } from "../context/AuthContext";
 
 // PrivateRoute : 로그인이 필요한 페이지에 접근할 수 있도록 하는 컴포넌트
 // 로그인이 되어있지 않은 사용자는 login 페이지로 리다이렉트
-const PrivateRoute = ({ element: Element, ...rest }) => {
+// const PrivateRoute = ({ element: Element, ...rest }) => {
+//   const { isAuthenticated } = useContext(AuthContext);
+//   return isAuthenticated ? <Element {...rest} /> : <Navigate to="/login" />;
+// };
+const PrivateRoute = () => {
   const { isAuthenticated } = useContext(AuthContext);
-  return isAuthenticated ? <Element {...rest} /> : <Navigate to="/login" />;
+  return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
 };
 
 // PublicRoute : 로그인이 필요없는 페이지에 접근할 수 있도록 하는 컴포넌트
 // 로그인이 되어있는 사용자는 mypage로 리다이렉트
-const PublicRoute = ({ element: Element, ...rest }) => {
+// const PublicRoute = ({ element: Element, ...rest }) => {
+//   const { isAuthenticated } = useContext(AuthContext);
+//   return !isAuthenticated ? <Element {...rest} /> : <Navigate to="/profile" />;
+// };
+const PublicRoute = () => {
   const { isAuthenticated } = useContext(AuthContext);
-  return !isAuthenticated ? <Element {...rest} /> : <Navigate to="/profile" />;
+  return !isAuthenticated ? <Outlet /> : <Navigate to="/profile" replace />;
 };
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
+        {/* 기본 레이아웃 적용 */}
         <Route element={<Layout />}>
+          {/* 홈 화면 */}
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<PublicRoute element={Login} />} />
-          <Route path="/signup" element={<PublicRoute element={Signup} />} />
-          <Route path="/profile" element={<PrivateRoute element={Profile} />} />
-          <Route path="/test" element={<PrivateRoute element={Test} />} />
-          <Route
-            path="/results"
-            element={<PrivateRoute element={TestResults} />}
-          />
+
+          {/* PublicRoute, 비로그인 사용자 */}
+          <Route element={<PublicRoute />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+          </Route>
+
+          {/* PrivateRoute, 로그인된 사용자 */}
+          <Route element={<PrivateRoute />}>
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/test" element={<Test />} />
+            <Route path="/results" element={<TestResults />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
