@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import TestResultItem from "./TestResultItem";
-import { AuthContext } from "../context/AuthContext";
+import useAuthStore from "../zustand/authStore";
 
 const TestResultList = ({ results, setResults }) => {
-  const { user } = useContext(AuthContext);
+  const { user } = useAuthStore();
   const currentUserId = user ? user.id : null;
   /**
    * 🔹 결과 필터링:
@@ -46,7 +46,6 @@ const TestResultList = ({ results, setResults }) => {
         <TestResultItem
           key={item.id}
           result={item}
-
           handleVisibility={handleVisibility}
           removeTestResult={removeTestResult}
         />

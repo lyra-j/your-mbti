@@ -1,16 +1,16 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import useForm from "../hook/useForm";
-import { AuthContext } from "../context/AuthContext";
 import { apilogin, register } from "../api/auth";
+import useAuthStore from "../zustand/authStore";
 
 const AuthForm = ({ mode }) => {
   // 현재 모드 확인 (true: 로그인, false: 회원가입)
   const isLoginMode = mode === "login";
   const navigate = useNavigate();
 
-  // AuthContext에서
-  const { loginUser } = useContext(AuthContext);
+  // AuthStore에서 loginuser 상태관리 함수 가져오기
+  const { loginUser } = useAuthStore();
 
   // 입력 폼 상태관리 커스텀 훅
   const { formData, handleChange, resetForm } = useForm({

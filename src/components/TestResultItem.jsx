@@ -1,12 +1,12 @@
-import React, { useContext, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
+import React, {  useState } from "react";
 import {
   deleteTestResult,
   updateTestResultVisibility,
 } from "../api/testResults";
+import useAuthStore from '../zustand/authStore';
 
 const TestResultItem = ({ result, handleVisibility, removeTestResult }) => {
-  const { user } = useContext(AuthContext);
+  const { user } = useAuthStore();
   const currentUserId = user ? user.id : null;
   const { id, userid, nickname, mbti, description, date, visibility } = result;
 

@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import useAuthStore from "../zustand/authStore";
 
 const Home = () => {
-  // AuthContext에서 로그인 인증 상태 가져오기
-  const { isAuthenticated } = useContext(AuthContext);
+  // AuthStore에서 로그인 인증 상태 가져오기
+  const { isAuthenticated } = useAuthStore();
   const navigate = useNavigate();
 
   // Test페이지로 이동하는 함수
