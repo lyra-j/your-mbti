@@ -12,7 +12,7 @@ import Profile from "../pages/Profile";
 import Signup from "../pages/Signup";
 import Test from "../pages/Test";
 import TestResults from "../pages/TestResults";
-import Layout from "../components/Layout";
+import Layout from "../layout/Layout";
 import { AuthContext } from "../context/AuthContext";
 
 // PrivateRoute : 로그인이 필요한 페이지에 접근할 수 있도록 하는 컴포넌트
