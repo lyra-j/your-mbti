@@ -4,10 +4,10 @@ import { persist } from "zustand/middleware";
 
 const useAuthStore = create(
   persist(
-    (set) => ({
+    (set, get) => ({
       //인증상태 초기값
-      token: null,
-      isAuthenticated: false,
+      token: sessionStorage.getItem("accessToken") || null,
+      isAuthenticated: !!sessionStorage.getItem("accessToken"),
       user: null,
 
       // ✅ 사용자 프로필 정보 가져오기
@@ -30,8 +30,8 @@ const useAuthStore = create(
         set({
           token,
           isAuthenticated: true,
-          user: userData,
         });
+        get().fetchUserProfile();
       },
 
       // ✅ 사용자 로그아웃
