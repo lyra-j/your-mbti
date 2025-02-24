@@ -28,9 +28,8 @@ const AuthForm = ({ mode }) => {
         id: formData.id,
         password: formData.password,
       });
-
       alert("로그인 완료");
-      loginUser(data.accessToken); // 로그인 상태를 브라우저에 저장
+      loginUser(data.accessToken, data); // 로그인 상태를 브라우저에 저장
       navigate("/profile"); // 프로필 페이지로 이동
     } catch (error) {
       console.error("⛔️Login error", error);

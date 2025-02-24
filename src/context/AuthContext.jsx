@@ -15,7 +15,7 @@ const AuthProvider = ({ children }) => {
 
   // ✅ 사용자 프로필 정보 가져오기
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && token) {
       const fetchUserProfile = async () => {
         try {
           const userProfile = await getUserProfile(token);
@@ -26,13 +26,14 @@ const AuthProvider = ({ children }) => {
       };
       fetchUserProfile();
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, token]);
 
   // ✅ 사용자 로그인
-  const loginUser = (token) => {
+  const loginUser = (token, userData) => {
     // 브라우저 세션에 액세스 토큰 저장
     sessionStorage.setItem("accessToken", token);
     setIsAuthenticated(true);
+    setUser(userData);
   };
 
   // ✅ 사용자 로그아웃

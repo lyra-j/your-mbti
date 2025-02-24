@@ -43,7 +43,7 @@ export const getUserProfile = async (token) => {
 
 /**
  * ✅ 사용자 프로필 정보 업데이트
- * @param {FormData} formData - (닉네임,)
+ * @param {FormData} formData - (닉네임, avatar)
  * @param {string} token - 인증 토큰
  * @returns {Object} - {업데이트된 닉네임, message, success}
  */
