@@ -3,19 +3,19 @@ import { getTestResults } from "../api/testResults";
 import TestResultList from "../components/TestResultList";
 
 const TestResults = () => {
-  const [result, setResult] = useState([]);
+  const [results, setResults] = useState([]);
 
   useEffect(() => {
-    const fetchTestResult = async () => {
+    const fetchTestResults = async () => {
       try {
-        const fetchResult = await getTestResults();
-        setResult(fetchResult);
+        const fetchResults = await getTestResults();
+        setResults(fetchResults);
       } catch (error) {
         console.error(error.message);
       }
     };
 
-    fetchTestResult();
+    fetchTestResults();
   }, []);
 
   return (
@@ -25,7 +25,7 @@ const TestResults = () => {
           모든 테스트 결과
         </h2>
 
-        <TestResultList result={result} setResult={setResult} />
+        <TestResultList results={results} setResults={setResults} />
       </div>
     </div>
   );
