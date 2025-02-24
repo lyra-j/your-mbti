@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import useAuthStore from "../zustand/authStore";
 
 const Header = () => {
-  // AuthContext에서 로그인 상태 및 로그아웃 함수 가져오기
-  const { isAuthenticated, logoutUser } = useContext(AuthContext);
+  // AuthStore에서 로그인 상태 및 로그아웃 함수 가져오기
+  const { isAuthenticated, logoutUser } = useAuthStore();
   const navigate = useNavigate();
 
   // ✅ 로그아웃 함수
