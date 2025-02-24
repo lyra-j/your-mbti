@@ -1,14 +1,38 @@
 import axios from "axios";
 
-const API_URL = "https://www.nbcamp-react-auth.link";
+// TODO : API_URL 숨기기
+const API_URL = import.meta.env.VITE_AUTH_SERVER_URL;
 
+// 회원가입
 export const register = async (userData) => {
-  const response = await axios.post(`${API_URL}/register`, userData);
-  return response.data;
+  const res = await axios.post(`${API_URL}/register`, userData);
+  return res.data;
 };
 
-export const login = async (userData) => {};
+// 로그인
+export const apilogin = async (userData) => {
+  const res = await axios.post(`${API_URL}/login`, userData);
+  return res.data;
+};
 
-export const getUserProfile = async (token) => {};
+// 회원정보 가져오기
+export const getUserProfile = async (token) => {
+  const res = await axios.get(`${API_URL}/user`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return res.data;
+};
 
-export const updateProfile = async (formData) => {};
+// 회원정보 변경
+export const updateProfile = async (formData, token) => {
+  const res = await axios.patch(`${API_URL}/profile`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return res.data;
+};
