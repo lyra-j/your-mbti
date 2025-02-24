@@ -1,14 +1,12 @@
 import axios from "axios";
-
-// 환경변수에서 JSON 테스트 서버 URL 가져오기
-const JSON_API = import.meta.env.VITE_JSON_TEST_SERVER_URL;
+import { jsonApi } from './apiInstance';
 
 /**
  * @description 테스트 결과 목록을 서버에서 가져오기
  * @returns {Promise<Array>} 테스트 결과 배열
  */
 export const getTestResults = async () => {
-  const res = await axios.get(JSON_API);
+  const res = await jsonApi.get(`/testResults`);
   return res.data;
 };
 
@@ -18,7 +16,7 @@ export const getTestResults = async () => {
  * @returns {Promise<Object>} 생성된 테스트 결과 데이터
  */
 export const createTestResult = async (resultData) => {
-  const res = await axios.post(JSON_API, resultData);
+  const res = await jsonApi.post(`/testResults`, resultData);
   return res.data;
 };
 
@@ -28,7 +26,7 @@ export const createTestResult = async (resultData) => {
  * @returns {Promise<Object>} 삭제된 테스트 결과 데이터
  */
 export const deleteTestResult = async (id) => {
-  const res = await axios.delete(`${JSON_API}/${id}`);
+  const res = await jsonApi.delete(`/testResults/${id}`);
   return res.data;
 };
 
@@ -39,6 +37,6 @@ export const deleteTestResult = async (id) => {
  * @returns {Promise<Object>} 업데이트된 테스트 결과 데이터
  */
 export const updateTestResultVisibility = async (id, visibility) => {
-  const res = await axios.patch(`${JSON_API}/${id}`, { visibility });
+  const res = await jsonApi.patch(`/testResults/${id}`, { visibility });
   return res.data;
 };

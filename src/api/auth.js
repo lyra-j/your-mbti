@@ -1,7 +1,6 @@
 import axios from "axios";
+import { authApi } from './apiInstance';
 
-// 환경변수에서 AUTH API 서버 URL 가져오기
-const API_URL = import.meta.env.VITE_AUTH_SERVER_URL;
 
 /**
  * ✅ 회원가입 API 호출
@@ -10,7 +9,7 @@ const API_URL = import.meta.env.VITE_AUTH_SERVER_URL;
  */
 
 export const register = async (userData) => {
-  const res = await axios.post(`${API_URL}/register`, userData);
+  const res = await authApi.post(`/register`, userData);
   return res.data;
 };
 
@@ -21,7 +20,7 @@ export const register = async (userData) => {
  */
 
 export const apilogin = async (userData) => {
-  const res = await axios.post(`${API_URL}/login`, userData);
+  const res = await authApi.post(`/login`, userData);
   return res.data;
 };
 
@@ -32,7 +31,7 @@ export const apilogin = async (userData) => {
  */
 
 export const getUserProfile = async (token) => {
-  const res = await axios.get(`${API_URL}/user`, {
+  const res = await authApi.get(`/user`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -48,7 +47,7 @@ export const getUserProfile = async (token) => {
  * @returns {Object} - {업데이트된 닉네임, message, success}
  */
 export const updateProfile = async (formData, token) => {
-  const res = await axios.patch(`${API_URL}/profile`, formData, {
+  const res = await authApi.patch(`/profile`, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
       Authorization: `Bearer ${token}`,
