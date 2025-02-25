@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import TestForm from "../components/TestForm";
 import { useNavigate } from "react-router-dom";
 import { calculateMBTI, mbtiDescriptions } from "../utils/mbtiCalculator";
 import { createTestResult } from "../api/testResults";
-import useAuthStore from "../zustand/authStore";
+import { AuthContext } from "../context/AuthContext";
 
 const Test = () => {
   const navigate = useNavigate();
   const [result, setResult] = useState(null); // MBTI 결과 state
-  const { user } = useAuthStore(); // AuthStore에서 사용자 정보 가져오기
+  const { user } = useContext(AuthContext); // AuthStore에서 사용자 정보 가져오기
 
   const handleTestSubmit = async (answers) => {
     const mbtiResult = calculateMBTI(answers);

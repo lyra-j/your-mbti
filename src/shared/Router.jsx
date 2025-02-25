@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   BrowserRouter,
   Navigate,
@@ -13,20 +13,19 @@ import Signup from "../pages/Signup";
 import Test from "../pages/Test";
 import TestResults from "../pages/TestResults";
 import Layout from "../layout/Layout";
-
-import useAuthStore from "../zustand/authStore";
+import { AuthContext } from "../context/AuthContext";
 
 // PrivateRoute : 로그인이 필요한 페이지에 접근할 수 있도록 하는 컴포넌트
 // 로그인이 되어있지 않은 사용자는 login 페이지로 리다이렉트
 const PrivateRoute = () => {
-  const { isAuthenticated } = useAuthStore();
+  const { isAuthenticated } = useContext(AuthContext);
   return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
 };
 
 // PublicRoute : 로그인이 필요없는 페이지에 접근할 수 있도록 하는 컴포넌트
 // 로그인이 되어있는 사용자는 mypage로 리다이렉트
 const PublicRoute = () => {
-  const { isAuthenticated } = useAuthStore();
+  const { isAuthenticated } = useContext(AuthContext);
   return !isAuthenticated ? <Outlet /> : <Navigate to="/profile" replace />;
 };
 

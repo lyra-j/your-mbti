@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import TestResultItem from "./TestResultItem";
-import useAuthStore from "../zustand/authStore";
+import { AuthContext } from "../context/AuthContext";
 
 const TestResultList = ({ results, setResults }) => {
-  const { user } = useAuthStore();
+  const { user } = useContext(AuthContext);
   const currentUserId = user ? user.id : null;
   /**
    * 🔹 결과 필터링:
