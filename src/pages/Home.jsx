@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import useAuthStore from "../zustand/authStore";
+import { toast } from "react-toastify";
 
 const Home = () => {
   // AuthStore에서 로그인 인증 상태 가져오기
@@ -14,17 +15,10 @@ const Home = () => {
       return navigate("/test");
     }
 
-    // 로그인 상태가 아니라면 사용자에게 확인창 표출
-    const confirmLogin = window.confirm(
-      "로그인 후 이용가능합니다. 로그인페이지로 이동하시겠습니까?"
-    );
-
+    // 로그인 상태가 아니라면 로그인 페이지로 이동
     if (!isAuthenticated) {
-      if (confirmLogin) {
-        navigate("/login");
-      } else {
-        navigate("/");
-      }
+      toast.info("로그인 후 이용가능합니다.");
+      navigate("/login");
     }
   };
 
