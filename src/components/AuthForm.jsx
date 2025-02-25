@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import useForm from "../hook/useForm";
+import { AuthContext } from "../context/AuthContext";
 import { apilogin, register } from "../api/auth";
-import useAuthStore from "../zustand/authStore";
 import { toast } from "react-toastify";
 
 const AuthForm = ({ mode }) => {
@@ -10,8 +10,8 @@ const AuthForm = ({ mode }) => {
   const isLoginMode = mode === "login";
   const navigate = useNavigate();
 
-  // AuthStore에서 loginuser 상태관리 함수 가져오기
-  const { loginUser } = useAuthStore();
+  // AuthContext에서
+  const { loginUser } = useContext(AuthContext);
 
   // 입력 폼 상태관리 커스텀 훅
   const { formData, handleChange, resetForm } = useForm({
@@ -33,6 +33,7 @@ const AuthForm = ({ mode }) => {
       loginUser(data.accessToken, data); // 로그인 상태를 브라우저에 저장
       navigate("/profile"); // 프로필 페이지로 이동
     } catch (error) {
+      console.error("⛔️Login error", error);
       toast.error("로그인에 실패했습니다.");
     }
   };
@@ -53,6 +54,7 @@ const AuthForm = ({ mode }) => {
       navigate("/login");
       resetForm();
     } catch (error) {
+      console.error("⛔️Signup error", error);
       toast.error("회원가입에 실패했습니다.");
     }
   };

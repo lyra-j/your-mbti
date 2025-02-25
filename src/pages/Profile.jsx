@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { updateProfile } from "../api/auth";
-import useAuthStore from "../zustand/authStore";
 import { toast } from "react-toastify";
 
 const Profile = () => {
   // 인증 상태 및 사용자 정보
-  const { isAuthenticated, token, user, setUser } = useAuthStore();
+  const { isAuthenticated, token, user, setUser } = useContext(AuthContext);
 
   // 닉네임 input satae
   const [newNickname, setNewNickname] = useState(user?.nickname || "");
