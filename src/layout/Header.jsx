@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useAuthStore from "../zustand/authStore";
+import { toast } from "react-toastify";
 
 const Header = () => {
   // AuthStore에서 로그인 상태 및 로그아웃 함수 가져오기
@@ -9,11 +10,9 @@ const Header = () => {
 
   // ✅ 로그아웃 함수
   const handleLogout = () => {
-    const confirmLogout = window.confirm("정말로 로그아웃 하시겠습니까?");
-    if (confirmLogout) {
-      logoutUser(); // 인증상태 변경 및 토큰 삭제
-      navigate("/");
-    }
+    toast.success("로그아웃이 완료되었습니다.");
+    logoutUser(); // 인증상태 변경 및 토큰 삭제
+    navigate("/");
   };
 
   return (
