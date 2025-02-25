@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import useAuthStore from "../zustand/authStore";
+import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
 
 const Home = () => {
-  // AuthStore에서 로그인 인증 상태 가져오기
-  const { isAuthenticated } = useAuthStore();
+  // AuthContext에서 로그인 인증 상태 가져오기
+  const { isAuthenticated } = useContext(AuthContext);
   const navigate = useNavigate();
 
   // Test페이지로 이동하는 함수
@@ -15,7 +15,7 @@ const Home = () => {
       return navigate("/test");
     }
 
-    // 로그인 상태가 아니라면 로그인 페이지로 이동
+    // 로그인 상태가 아니라면 로그인 페이지로 
     if (!isAuthenticated) {
       toast.info("로그인 후 이용가능합니다.");
       navigate("/login");

@@ -1,13 +1,13 @@
-import React, {  useState } from "react";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../context/AuthContext";
 import {
   deleteTestResult,
   updateTestResultVisibility,
 } from "../api/testResults";
-import useAuthStore from '../zustand/authStore';
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 const TestResultItem = ({ result, handleVisibility, removeTestResult }) => {
-  const { user } = useAuthStore();
+  const { user } = useContext(AuthContext);
   const currentUserId = user ? user.id : null;
   const { id, userid, nickname, mbti, description, date, visibility } = result;
 
@@ -47,7 +47,7 @@ const TestResultItem = ({ result, handleVisibility, removeTestResult }) => {
     try {
       await deleteTestResult(id);
       removeTestResult(id);
-      toast.info(`테스트 결과가 삭제되었습니다.`);
+      toast.success(`테스트 결과가 삭제되었습니다.`);
     } catch (error) {
       console.error("삭제 오류", error);
       toast.error(`삭제 중 오류가 발생했습니다.`);

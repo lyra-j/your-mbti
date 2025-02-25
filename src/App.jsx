@@ -1,12 +1,13 @@
 import React from "react";
 import Router from "./shared/Router";
+import AuthProvider from "./context/AuthContext";
 import { Bounce, ToastContainer } from "react-toastify";
 
 function App() {
   return (
-    <>
+    <AuthProvider>
       <ToastContainer
-        position="top-right"
+        position="bottom-right"
         autoClose={2000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -19,7 +20,7 @@ function App() {
         transition={Bounce}
       />
       <Router />
-    </>
+    </AuthProvider>
   );
 }
 
