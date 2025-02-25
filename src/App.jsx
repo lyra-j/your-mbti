@@ -1,10 +1,25 @@
-import "./App.css";
+import React from "react";
+import Router from "./shared/Router";
+import { Bounce, ToastContainer } from "react-toastify";
 
 function App() {
   return (
-    <div>
-      <h1>Vite + React</h1>
-    </div>
+    <>
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+      />
+      <Router />;
+    </>
   );
 }
 

@@ -1,8 +1,27 @@
-# React + Vite
+# Your MBTI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 💻 프로젝트 소개
 
-Currently, two official plugins are available:
+[프로젝트 배포 사이트](not yet)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+&nbsp; **[Frontend / React & JS / 개인 과제]**
+<br />
+&nbsp; 📆 작업 기간 : 2025.02.20 ~ 2025.02.25 <br />
+&nbsp; <br />
+<br />
+
+![React](https://img.shields.io/badge/-React-61DAFB?&logo=react&logoColor=white) ![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?&logo=javascript&logoColor=white) ![HTML5](https://img.shields.io/badge/-HTML5-E34F26?&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/-CSS3-1572B6?&logo=css3&logoColor=white) ![sytled-components](https://img.shields.io/badge/-styledcomponents-DB7093?&logo=styledcomponents&logoColor=white) ![vercel](https://img.shields.io/badge/-vercel-000000?&logo=vercel&logoColor=white)
+
+<br />
+
+## 🔹 트러블슈팅 & TIL
+
+- [트러블 슈팅 1](url)
+- [트러블 슈팅 2](url)
+- [트러블 슈팅 3](url)
+
+<br />
+
+---
+
+## 📝 프로젝트 작업 후기
