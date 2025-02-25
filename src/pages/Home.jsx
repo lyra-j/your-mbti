@@ -1,13 +1,64 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import useAuthStore from "../zustand/authStore";
+import { toast } from "react-toastify";
 
 const Home = () => {
-  return (
-    <div>
-      <h1 className="bg-slate-500">Your MBIT</h1>
-      <p>자신의 성격 유형을 확인할 수 있도록 솔직하게 답변해주세요.</p>
+  // AuthStore에서 로그인 인증 상태 가져오기
+  const { isAuthenticated } = useAuthStore();
+  const navigate = useNavigate();
 
-      <Link to="/login">로그인하기</Link>
+  // Test페이지로 이동하는 함수
+  const handleTestNavigation = () => {
+    // 로그인되어 있다면 Test페이지로 이동
+    if (isAuthenticated) {
+      return navigate("/test");
+    }
+
+    // 로그인 상태가 아니라면 로그인 페이지로 이동
+    if (!isAuthenticated) {
+      toast.info("로그인 후 이용가능합니다.");
+      navigate("/login");
+    }
+  };
+
+  return (
+    <div className="w-full flex flex-col items-center justify-center bg-gray-50">
+      <div>
+        <h2 className="text-3xl font-semibold mb-5">무료 성격 테스트</h2>
+        <p className="text-lg mb-8">
+          자신의 성격 유형을 확인할 수 있도록 솔직하게 답변해주세요.
+        </p>
+      </div>
+      <ul className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <li className="bg-white p-5 rounded-lg shadow-lg">
+          <h3 className="text-xl font-semibold mb-4">성격 유형 검사</h3>
+          <p className="text-gray-600">
+            자신의 성격 유형을 파악하고 삶의 여러 영역에서 어떤 영향을 미치는지
+            알아보세요.
+          </p>
+        </li>
+        <li className="bg-white p-5 rounded-lg shadow-lg">
+          <h3 className="text-xl font-semibold mb-4">성격 유형 이해</h3>
+          <p className="text-gray-600">
+            다른 사람들이 어떻게 행동하는지 이해하는 데 도움을 줄 수 있습니다.
+          </p>
+        </li>
+        <li className="bg-white p-5 rounded-lg shadow-lg">
+          <h3 className="text-xl font-semibold mb-4">팀 평가</h3>
+          <p className="text-gray-600">
+            팀 내에서 자신과 동료들의 성격을 이해하고 협력할 수 있는 방법을
+            배워보세요.
+          </p>
+        </li>
+      </ul>
+
+      <button
+        onClick={handleTestNavigation}
+        className="inline-block bg-violet-500 text-white py-2 px-6 rounded-full transition mb-4 hover:bg-violet-800"
+      >
+        내 성격 알아보러 가기
+      </button>
     </div>
   );
 };
