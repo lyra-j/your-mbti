@@ -2,7 +2,7 @@
 
 ## 💻 프로젝트 소개
 
-[프로젝트 배포 사이트](not yet)
+[프로젝트 배포 사이트](https://your-mbti.vercel.app/)
 
 &nbsp; **[Frontend / React & JS / 개인 과제]**
 <br />
