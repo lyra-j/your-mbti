@@ -15,7 +15,7 @@ const Home = () => {
       return navigate("/test");
     }
 
-    // 로그인 상태가 아니라면 사용자에게 확인창 표출
+    // 로그인 상태가 아니라면 로그인 페이지로 
     if (!isAuthenticated) {
       toast.info("로그인 후 이용가능합니다.");
       navigate("/login");
