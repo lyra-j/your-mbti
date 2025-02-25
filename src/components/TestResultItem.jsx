@@ -4,6 +4,7 @@ import {
   deleteTestResult,
   updateTestResultVisibility,
 } from "../api/testResults";
+import { toast } from "react-toastify";
 
 const TestResultItem = ({ result, handleVisibility, removeTestResult }) => {
   const { user } = useContext(AuthContext);
@@ -26,10 +27,10 @@ const TestResultItem = ({ result, handleVisibility, removeTestResult }) => {
       const newVisibility = !visibility; // 현재 상태 반전
       await updateTestResultVisibility(id, newVisibility); // API 호출
       handleVisibility(id, newVisibility);
-      alert(`${newVisibility ? "공개 " : "비공개"}상태로 변경되었습니다.`);
+      toast.info(`${newVisibility ? "공개 " : "비공개"}상태로 변경되었습니다.`);
     } catch (error) {
       console.error("공개/비공개 전환 오류:", error);
-      alert("공개/비공개 전환 도중 오류가 발생하였습니다.");
+      toast.error("공개/비공개 전환 도중 오류가 발생하였습니다.");
     } finally {
       setLoading(false);
     }
@@ -46,10 +47,10 @@ const TestResultItem = ({ result, handleVisibility, removeTestResult }) => {
     try {
       await deleteTestResult(id);
       removeTestResult(id);
-      alert(`테스트 결과가 삭제되었습니다.`);
+      toast.success(`테스트 결과가 삭제되었습니다.`);
     } catch (error) {
       console.error("삭제 오류", error);
-      alert(`삭제 중 오류가 발생했습니다.`);
+      toast.error(`삭제 중 오류가 발생했습니다.`);
     } finally {
       setLoading(false);
     }

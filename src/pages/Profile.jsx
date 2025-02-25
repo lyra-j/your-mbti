@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { updateProfile } from "../api/auth";
+import { toast } from "react-toastify";
 
 const Profile = () => {
   // 인증 상태 및 사용자 정보
@@ -14,7 +15,7 @@ const Profile = () => {
 
   // 사용자가 로그인하지 않은경우, 로그인페이지로 이동
   if (!isAuthenticated) {
-    alert("로그인이 필요합니다.");
+    toast.info("로그인이 필요합니다.");
     navigate("/login");
     return null;
   }
@@ -38,9 +39,9 @@ const Profile = () => {
       // 변경된 닉네임 적용
       setUser((prev) => ({ ...prev, nickname: data.nickname }));
       setNewNickname(data.nickname);
-      alert("닉네임이 변경되었습니다.");
+      toast.success("닉네임이 변경되었습니다.");
     } catch (error) {
-      alert("닉네임 변경에 실패했습니다.");
+      toast.error("닉네임 변경에 실패했습니다.");
       console.error("프로필 업데이트중 오류가 발생했습니다.", error.message);
     }
   };
